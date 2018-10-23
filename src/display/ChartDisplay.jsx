@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
 import {LineGraph} from './LineGraph'
-import {PRPI, HDBRPI, concatArray} from '../dataProcessing/dataApi'
+import Menu from './Menu'
+// import {PRPI, HDBRPI, concatArray} from '../dataProcessing/dataApi'
+ import {apiData} from '../dataProcessing/dataContext'
+// import * as data from '../dataProcessing/dataApi'
 
 class ChartDisplay extends Component {
-    constructor(props) {
-        super(props)
-        this.state={
-            data: []
-        }
+    constructor(props, context) {
+        super(props, context)
+        this.handleClick = this.handleClick.bind(this)
     }
     
-    async componentDidMount(){
-        try{
-            const PRPindexItems = await PRPI
-            const HDBRPIindexItems = await HDBRPI
-            let result = concatArray(PRPindexItems,HDBRPIindexItems)
-            this.setState({data:result})
-            } catch (error) {throw error}
-      }
+    handleClick(event){
+        let name = event.target.name
+        console.log(name)
+        this.setState({
+          [name]: event.target.name
+        })
+    }
 
     render() {
+        const items = ["PRPI","HDBRPI"]
         return (
-            <LineGraph {...this.state.data}/>
-        );
+            <React.Fragment>
+            { items.map(item => <Menu key={item} name={item} handleClick={this.handleClick}/>)
+            }
+                <apiData.Consumer>
+                    {data => <LineGraph data={data}/>}
+                </apiData.Consumer>
+            </React.Fragment>
+        )
     }
 }
 

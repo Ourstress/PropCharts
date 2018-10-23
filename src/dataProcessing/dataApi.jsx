@@ -13,7 +13,7 @@ const urls = {
 
 const mapper = (data, dataValue, datasetName) => Object.keys(data).map(key => 
     {   let a = JSON.stringify(data[key])
-        return ({x: a.match(/\d\d\d\d/)+"-"+`${a.includes("Q1")?"01":a.includes("Q2")?"04":a.includes("Q3")?"07":a.includes("Q4")?"04": ""}`
+        return ({x: a.match(/\d\d\d\d/)+"-"+`${a.includes("Q1")?"01":a.includes("Q2")?"04":a.includes("Q3")?"07":a.includes("Q4")?"10": ""}`
         , [datasetName]:data[key][dataValue]})})
 
 const getFromDataGov = async (url, dataValue, datasetName) => {
