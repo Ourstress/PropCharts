@@ -1,36 +1,33 @@
-import React, { Component } from 'react';
-import {LineGraph} from './LineGraph'
-import Menu from './Menu'
-// import {PRPI, HDBRPI, concatArray} from '../dataProcessing/dataApi'
- import {apiData} from '../dataProcessing/dataContext'
-// import * as data from '../dataProcessing/dataApi'
+import React, { Component } from "react";
+import { LineGraph } from "./LineGraph";
+import Menu from "./Menu";
+import { apiData } from "../dataProcessing/dataContext";
 
 class ChartDisplay extends Component {
-    constructor(props, context) {
-        super(props, context)
-        this.handleClick = this.handleClick.bind(this)
-    }
-    
-    handleClick(event){
-        let name = event.target.name
-        console.log(name)
-        this.setState({
-          [name]: event.target.name
-        })
-    }
+  constructor(props, context) {
+    super(props, context);
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-    render() {
-        const items = ["PRPI","HDBRPI"]
-        return (
-            <React.Fragment>
-            { items.map(item => <Menu key={item} name={item} handleClick={this.handleClick}/>)
-            }
-                <apiData.Consumer>
-                    {data => <LineGraph data={data}/>}
-                </apiData.Consumer>
-            </React.Fragment>
-        )
-    }
+  handleClick(event) {
+    let name = event.target.name;
+    this.setState({
+      [name]: this.state == null ? true : !this.state[name]
+    });
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        {this.props.graphs.map(item => (
+          <Menu key={item} name={item} handleClick={this.handleClick} />
+        ))}
+        <apiData.Consumer>
+          {data => <LineGraph data={data} {...this.props} />}
+        </apiData.Consumer>
+      </React.Fragment>
+    );
+  }
 }
 
 export default ChartDisplay;
