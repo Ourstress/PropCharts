@@ -8,6 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer
 } from "recharts";
+import { urlName } from "../dataProcessing/dataApi";
 
 export class LineGraph extends Component {
   render() {
@@ -18,12 +19,15 @@ export class LineGraph extends Component {
             <Line
               key={graph}
               type="monotone"
+              name={urlName[graph]}
               dataKey={
                 this.props[graph] === true || this.props[graph] == null
                   ? `${graph}`
                   : `${graph} `
               }
-              stroke={"#" + Math.floor(Math.random() * 16777215).toString(16)}
+              stroke={`#${Math.floor(Math.random() * 0x1000000)
+                .toString(16)
+                .padStart(6, 0)}`}
               dot={false}
             />
           ))}
