@@ -12,7 +12,10 @@ class ChartDisplay extends Component {
   handleClick(event) {
     let name = event.target.name;
     this.setState({
-      [name]: this.state == null ? true : !this.state[name]
+      [name]:
+        this.state == null || this.state[name] == null
+          ? false
+          : !this.state[name]
     });
   }
 
