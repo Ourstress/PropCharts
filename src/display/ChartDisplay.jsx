@@ -23,7 +23,7 @@ class ChartDisplay extends Component {
           <Menu key={item} name={item} handleClick={this.handleClick} />
         ))}
         <apiData.Consumer>
-          {data => <LineGraph data={data} {...this.props} />}
+          {data => <LineGraph data={data} {...this.props} {...this.state} />}
         </apiData.Consumer>
       </React.Fragment>
     );

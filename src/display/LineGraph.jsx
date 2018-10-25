@@ -18,8 +18,12 @@ export class LineGraph extends Component {
             <Line
               key={graph}
               type="monotone"
-              dataKey={graph}
-              stroke={"#" + ((Math.random() * 0xffffff) << 0).toString(16)}
+              dataKey={
+                this.props[graph] === true || this.props[graph] == null
+                  ? `${graph}`
+                  : `${graph} `
+              }
+              stroke={"#" + Math.floor(Math.random() * 16777215).toString(16)}
               dot={false}
             />
           ))}
