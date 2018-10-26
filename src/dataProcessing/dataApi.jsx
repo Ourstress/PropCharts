@@ -64,15 +64,6 @@ const masMapper = (data, dataValue, datasetName) =>
     };
   });
 
-const masMapperSTI = (data, dataValue, datasetName) =>
-  Object.keys(data).map(key => {
-    let a = JSON.stringify(data[key].end_of_month);
-    return {
-      x: a.match(/\d\d\d\d/) + "-" + a.match(/\b\d\d\b/),
-      [datasetName]: (data[key][dataValue] * 100) / 1746.47
-    };
-  });
-
 const getFromDataGov = async (url, dataValue, datasetName) => {
   const response = await axios(url);
   const normalizedData = normalize(response, dataGovRequest);
@@ -82,15 +73,10 @@ const getFromDataGov = async (url, dataValue, datasetName) => {
 const getFromMAS = async (url, dataValue, datasetName) => {
   const response = await axios(url);
   const normalizedData = normalize(response, masRequest);
+  console.log(normalizedData);
   return masMapper(normalizedData.entities.record, dataValue, datasetName);
 };
 
-const getFromMASsti = async (url, dataValue, datasetName) => {
-  const response = await axios(url);
-  const normalizedData = normalize(response, masRequest);
-  console.log(normalizedData);
-  return masMapperSTI(normalizedData.entities.record, dataValue, datasetName);
-};
 // for multiple arrays, concat them 2 by 2.
 // eg let result1 = concatArray(arr1,arr2), then result2 = concatArray(result1,arr3)
 
@@ -112,4 +98,4 @@ export const concatArray = (array1, array2) => {
 export const PRPI = getFromDataGov(urls.PRPI, "value", "PRPI");
 export const HDBRPI = getFromDataGov(urls.HDBRPI, "index", "HDBRPI");
 export const siborMAS = getFromMAS(urls.siborMAS, "interbank_1w", "siborMAS");
-export const STI = getFromMASsti(urls.STI, "sti", "STI");
+export const STI = getFromMAS(urls.STI, "sti", "STI");

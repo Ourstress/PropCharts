@@ -7,7 +7,7 @@ class Menu extends Component {
         <label htmlFor="item">{this.props.name} </label>
         <input
           type="checkbox"
-          defaultChecked={true}
+          defaultChecked={this.props.defaultChecked}
           onChange={this.props.handleClick}
           name={this.props.name}
         />

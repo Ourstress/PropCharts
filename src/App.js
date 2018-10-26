@@ -7,8 +7,8 @@ class App extends Component {
     return (
       <DataContext>
         <ChartDisplay
-          graphLeft={["PRPI", "HDBRPI", "STI"]}
-          graphRight={["siborMAS"]}
+          graphLeft={["PRPI", "HDBRPI"]}
+          graphRight={["siborMAS", "STI"]}
         />
       </DataContext>
     );
