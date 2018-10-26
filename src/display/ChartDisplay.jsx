@@ -23,11 +23,10 @@ class ChartDisplay extends Component {
   handleClickRight(event) {
     let name = event.target.name;
     this.setState({
-      [name]:
-        this.state == null || this.state[name] == null
-          ? true
-          : !this.state[name],
-      right: "right" + [name]
+      right:
+        this.state == null || this.state.right !== `right${name}`
+          ? "right" + [name]
+          : null
     });
   }
 
@@ -39,7 +38,11 @@ class ChartDisplay extends Component {
             key={item}
             name={item}
             handleClick={this.handleClickLeft}
-            defaultChecked={true}
+            checked={
+              this.state == null || this.state[item] == null
+                ? true
+                : this.state[item]
+            }
           />
         ))}
         {this.props.graphRight.map(item => (
@@ -47,7 +50,11 @@ class ChartDisplay extends Component {
             key={item}
             name={item}
             handleClick={this.handleClickRight}
-            defaultChecked={false}
+            checked={
+              this.state == null || this.state.right !== `right${item}`
+                ? false
+                : true
+            }
           />
         ))}
         <apiData.Consumer>

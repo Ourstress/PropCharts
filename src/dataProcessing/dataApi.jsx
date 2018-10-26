@@ -73,7 +73,6 @@ const getFromDataGov = async (url, dataValue, datasetName) => {
 const getFromMAS = async (url, dataValue, datasetName) => {
   const response = await axios(url);
   const normalizedData = normalize(response, masRequest);
-  console.log(normalizedData);
   return masMapper(normalizedData.entities.record, dataValue, datasetName);
 };
 

@@ -41,10 +41,7 @@ export class LineGraph extends Component {
               type="monotone"
               name={urlName[graph]}
               dataKey={
-                this.props.right === `right${graph}` &&
-                this.props[graph] === true
-                  ? `${graph}`
-                  : `${graph} `
+                this.props.right === `right${graph}` ? `${graph}` : `${graph} `
               }
               stroke={`#${Math.floor(Math.random() * 0x1000000)
                 .toString(16)
