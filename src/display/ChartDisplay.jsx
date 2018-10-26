@@ -22,7 +22,10 @@ class ChartDisplay extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.graphs.map(item => (
+        {this.props.graphLeft.map(item => (
+          <Menu key={item} name={item} handleClick={this.handleClick} />
+        ))}
+        {this.props.graphRight.map(item => (
           <Menu key={item} name={item} handleClick={this.handleClick} />
         ))}
         <apiData.Consumer>

@@ -6,7 +6,10 @@ class App extends Component {
   render() {
     return (
       <DataContext>
-        <ChartDisplay graphs={["PRPI", "HDBRPI"]} />
+        <ChartDisplay
+          graphLeft={["PRPI", "HDBRPI", "STI"]}
+          graphRight={["siborMAS"]}
+        />
       </DataContext>
     );
   }

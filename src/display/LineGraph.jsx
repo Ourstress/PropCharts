@@ -15,8 +15,28 @@ export class LineGraph extends Component {
     return (
       <ResponsiveContainer width="100%" aspect={4.0 / 3.0}>
         <LineChart data={this.props.data}>
-          {this.props.graphs.map(graph => (
+          {this.props.graphLeft.map(graph => (
             <Line
+              connectNulls={true}
+              yAxisId="left"
+              key={graph}
+              type="monotone"
+              name={urlName[graph]}
+              dataKey={
+                this.props[graph] === true || this.props[graph] == null
+                  ? `${graph}`
+                  : `${graph} `
+              }
+              stroke={`#${Math.floor(Math.random() * 0x1000000)
+                .toString(16)
+                .padStart(6, 0)}`}
+              dot={false}
+            />
+          ))}
+          {this.props.graphRight.map(graph => (
+            <Line
+              connectNulls={true}
+              yAxisId="right"
               key={graph}
               type="monotone"
               name={urlName[graph]}
@@ -34,7 +54,8 @@ export class LineGraph extends Component {
           <XAxis dataKey="x" />
           <Tooltip />
           <Legend />
-          <YAxis />
+          <YAxis yAxisId="left" />
+          <YAxis yAxisId="right" orientation="right" />
         </LineChart>
       </ResponsiveContainer>
     );
