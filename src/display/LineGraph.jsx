@@ -41,7 +41,8 @@ export class LineGraph extends Component {
               type="monotone"
               name={urlName[graph]}
               dataKey={
-                this.props[graph] === true || this.props[graph] == null
+                this.props.right === `right${graph}` &&
+                this.props[graph] === true
                   ? `${graph}`
                   : `${graph} `
               }

@@ -26,7 +26,8 @@ class ChartDisplay extends Component {
       [name]:
         this.state == null || this.state[name] == null
           ? true
-          : !this.state[name]
+          : !this.state[name],
+      right: "right" + [name]
     });
   }
 
