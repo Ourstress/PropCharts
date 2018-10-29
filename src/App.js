@@ -1,17 +1,9 @@
 import React, { Component } from "react";
-import ChartDisplay from "./display/ChartDisplay";
-import DataContext from "./dataProcessing/dataContext";
+import Article from "./article/article";
 
 class App extends Component {
   render() {
-    return (
-      <DataContext>
-        <ChartDisplay
-          graphLeft={["PRPI", "HDBRPI"]}
-          graphRight={["siborMAS", "STI"]}
-        />
-      </DataContext>
-    );
+    return <Article />;
   }
 }
 
