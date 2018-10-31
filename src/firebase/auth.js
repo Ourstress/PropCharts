@@ -1,21 +1,14 @@
 import { auth } from "./firebase";
+import * as db from "./db";
 
-var provider = new auth.GoogleAuthProvider();
-auth().signInWithRedirect(provider);
-
-auth
-  .getRedirectResult()
-  .then(function(result) {
-    if (result.credential) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken; // ...
-    } // The signed-in user info.
-    var user = result.user;
-  })
-  .catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message; // The email of the user's account used.
-    var email = error.email; // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential; // ...
-  });
+export const signInWithGoogle = async () => {
+  let provider = new auth.GoogleAuthProvider();
+  auth()
+    .signInWithPopup(provider)
+    .then(function(result) {
+      const token = result.credential.accessToken;
+      const user = result.user; // ...
+      console.log(user);
+      db.createUser(user.displayName, user.email);
+    });
+};

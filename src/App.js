@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Article from "./article/article";
 import { GoogleSigninButton } from "./display/buttons";
-import { db } from "./firebase/index";
+import { db, auth } from "./firebase/index";
 
 class App extends Component {
   constructor(props, context) {
@@ -11,6 +11,10 @@ class App extends Component {
       email: ""
     };
   }
+  onAuth = event => {
+    event.preventDefault();
+    auth.signInWithGoogle();
+  };
 
   onSubmit = event => {
     event.preventDefault();
@@ -25,7 +29,7 @@ class App extends Component {
     const { username, email } = this.state;
     return (
       <React.Fragment>
-        <GoogleSigninButton />
+        <GoogleSigninButton onClick={this.onAuth} />
         <form onSubmit={this.onSubmit}>
           <input
             value={username}
