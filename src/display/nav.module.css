@@ -1,0 +1,10 @@
+.logInLogOut {
+  display: inline;
+}
+
+.logInLogOutp {
+  font-size: 14px;
+  height: 40px;
+  background-color: aqua;
+  vertical-align: middle;
+}

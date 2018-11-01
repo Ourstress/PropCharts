@@ -1,13 +1,15 @@
 import { db } from "./firebase";
 
-export const createUser = (username, email) => {
-  db.collection("users")
-    .add({
-      username,
-      email
-    })
-    .then(function() {
-      console.log("Synchronization succeeded");
-    });
-  console.log("done");
+export const createUser = (
+  username,
+  email,
+  photoURL = "",
+  phoneNumber = ""
+) => {
+  db.collection("user").add({
+    username,
+    email,
+    photoURL,
+    phoneNumber
+  });
 };
