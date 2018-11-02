@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { auth } from "../firebase/index";
+import { db } from "../firebase/index";
 
 export const AuthContext = React.createContext(false);
 
@@ -16,7 +17,9 @@ export class AuthContextProvider extends Component {
 
   googleLogin = async event => {
     event.preventDefault();
-    const results = await auth.signInWithGoogle();
+    const user = await auth.signInWithGoogle();
+    const querySnapshot = await db.queryUserByEmail(user);
+    const results = await db.queryUserByEmailOperation(querySnapshot, user);
     this.setState(results);
     this.setState({ isAuth: true });
   };
