@@ -1,5 +1,6 @@
 //import * as db from "./db";
 const firebase = require("firebase/app");
+require("firebase/auth");
 
 export const signInWithGoogle = async () => {
   try {

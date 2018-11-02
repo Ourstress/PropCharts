@@ -37,7 +37,15 @@ class Article extends Component {
                 />
               ))}
               <AuthContext.Consumer>
-                {({ isAuth }) => isAuth && <AddComments />}
+                {({ isAuth, userID }) =>
+                  isAuth && (
+                    <AddComments
+                      userID={userID}
+                      isAuth={isAuth}
+                      justTest="testhoho"
+                    />
+                  )
+                }
               </AuthContext.Consumer>
               <DataContext>
                 <ChartDisplay

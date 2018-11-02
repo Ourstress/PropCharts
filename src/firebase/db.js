@@ -1,6 +1,14 @@
 import { db } from "./firebase";
 const firebase = require("firebase/app");
 
+export const createComment = (authorID, text) => {
+  let timeNow = new Date();
+  db.collection("comments").add({
+    author: firebase.firestore().doc(`/user/${authorID}`),
+    date: timeNow,
+    text: text
+  });
+};
 export const createUser = (
   username,
   email,
@@ -36,6 +44,10 @@ export const comments = async () => {
     querySnapshot.forEach(function(doc) {
       const commentsContainer = {};
       commentsContainer.text = doc.data().text;
+      commentsContainer.date = doc
+        .data()
+        .date.toDate()
+        .toString();
       commentsContainer.author = doc.data().author.id;
       container[doc.id] = commentsContainer;
     });
@@ -69,17 +81,17 @@ export const queryUserByEmail = async user => {
 };
 
 export const queryUserByEmailOperation = async (querySnapshot, user) => {
-  console.log(querySnapshot);
   let result = {};
   let timeNow = new Date();
   if (querySnapshot.size > 0) {
-    querySnapshot.forEach(querysnapshot => {
+    querySnapshot.forEach(Snapshot => {
       db.collection("user")
-        .doc(querysnapshot.id)
+        .doc(Snapshot.id)
         .update({
           loginSessions: firebase.firestore.FieldValue.arrayUnion(timeNow)
         });
-      Object.assign(result, querysnapshot.data());
+      Object.assign(result, Snapshot.data());
+      Object.assign(result, { userID: Snapshot.id });
     });
     return result;
   } else {

@@ -11,7 +11,8 @@ export class AuthContextProvider extends Component {
       isAuth: false,
       username: "",
       email: "",
-      photoURL: ""
+      photoURL: "",
+      userID: ""
     };
   }
 
@@ -31,6 +32,7 @@ export class AuthContextProvider extends Component {
       username: "",
       email: "",
       photoURL: "",
+      userID: "",
       isAuth: false
     });
   };
@@ -44,7 +46,8 @@ export class AuthContextProvider extends Component {
           email: this.state.email,
           photoURL: this.state.photoURL,
           googleLogin: this.googleLogin,
-          googleLogOut: this.googleLogOut
+          googleLogOut: this.googleLogOut,
+          userID: this.state.userID
         }}
       >
         {this.props.children}
