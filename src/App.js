@@ -6,12 +6,13 @@ import { AuthContextProvider } from "./article/AuthContext";
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <div className="container">
         <AuthContextProvider>
           <HeaderAndNav />
+          <div className="sidebar">hello</div>
           <Article />
         </AuthContextProvider>
-      </React.Fragment>
+      </div>
     );
   }
 }

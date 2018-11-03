@@ -19,37 +19,44 @@ class Article extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <section role="main">
         {!this.state && <p>loading</p>}
         {this.state &&
           this.state.comments &&
           this.state.authors &&
           Object.keys(this.state.articles).map(key => (
-            <article key={key}>
-              <ReactMarkdown source={this.state.articles[key].articleText} />
-              {this.state.articles[key].comments.map(commentID => (
-                <Comments
-                  data={this.state.comments[commentID]}
-                  author={
-                    this.state.authors[this.state.comments[commentID].author]
+            <article key={key} className="h-entry">
+              <section>
+                <ReactMarkdown source={this.state.articles[key].articleText} />
+              </section>
+              <section className="comments">
+                {this.state.articles[key].comments.map(commentID => (
+                  <Comments
+                    className="comment"
+                    data={this.state.comments[commentID]}
+                    author={
+                      this.state.authors[this.state.comments[commentID].author]
+                    }
+                    key={commentID}
+                  />
+                ))}
+                <AuthContext.Consumer>
+                  {({ isAuth, userID }) =>
+                    isAuth && <AddComments userID={userID} articleID={key} />
                   }
-                  key={commentID}
-                />
-              ))}
-              <AuthContext.Consumer>
-                {({ isAuth, userID }) =>
-                  isAuth && <AddComments userID={userID} articleID={key} />
-                }
-              </AuthContext.Consumer>
-              <DataContext>
-                <ChartDisplay
-                  graphLeft={this.state.articles[key].graphLeft}
-                  graphRight={this.state.articles[key].graphRight}
-                />
-              </DataContext>
+                </AuthContext.Consumer>
+              </section>
+              <section>
+                <DataContext>
+                  <ChartDisplay
+                    graphLeft={this.state.articles[key].graphLeft}
+                    graphRight={this.state.articles[key].graphRight}
+                  />
+                </DataContext>
+              </section>
             </article>
           ))}
-      </React.Fragment>
+      </section>
     );
   }
 }

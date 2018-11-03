@@ -3,4 +3,37 @@
 }
 body {
   display: grid;
+  padding: 0 2rem 0 2rem;
+}
+.container {
+  display: grid;
+  grid-template-columns: 0.4fr 1fr 1fr;
+  grid-template-areas:
+    "header header header"
+    "sidebar center center";
+}
+header {
+  grid-area: header;
+}
+[role="main"] {
+  grid-area: center;
+}
+[role="main"] article {
+  grid-area: center;
+  font-size: 1rem;
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+}
+[role="main"] article section.comments {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.sidebar {
+  font-size: 2rem;
+  grid-area: sidebar;
+}
+@media only screen and (max-width: 600px) {
+  [role="main"] article {
+    grid-template-columns: 1fr;
+  }
 }
