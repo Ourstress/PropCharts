@@ -1,13 +1,24 @@
 import { db } from "./firebase";
 const firebase = require("firebase/app");
 
-export const createComment = (authorID, text) => {
+export const createComment = (authorID, text, articleID) => {
   let timeNow = new Date();
-  db.collection("comments").add({
-    author: firebase.firestore().doc(`/user/${authorID}`),
-    date: timeNow,
-    text: text
-  });
+  db.collection("comments")
+    .add({
+      author: firebase.firestore().doc(`/user/${authorID}`),
+      date: timeNow,
+      text: text
+    })
+    .then(doc => {
+      const newCommentID = doc.id;
+      db.collection("article")
+        .doc(articleID)
+        .update({
+          comments: firebase.firestore.FieldValue.arrayUnion(
+            firebase.firestore().doc(`/comments/${newCommentID}`)
+          )
+        });
+    });
 };
 export const createUser = (
   username,
@@ -47,6 +58,7 @@ export const comments = async () => {
       commentsContainer.date = doc
         .data()
         .date.toDate()
+        .toLocaleString()
         .toString();
       commentsContainer.author = doc.data().author.id;
       container[doc.id] = commentsContainer;
@@ -58,14 +70,16 @@ export const comments = async () => {
 export const articles = async () => {
   const query = await db.collection("article");
   const container = {};
-  const commentsContainer = {};
   await query.get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
+      const commentsContainer = {};
       commentsContainer.articleText = doc
         .data()
         .articleText.replace(/-/g, "\n-");
       commentsContainer.graphLeft = doc.data().graphLeft;
       commentsContainer.graphRight = doc.data().graphRight;
+      commentsContainer.dateUpdated = doc.data().dateUpdated;
+      commentsContainer.pubdate = doc.data().pubdate;
       commentsContainer.comments = Object.values(doc.data().comments).map(
         item => item.id
       );

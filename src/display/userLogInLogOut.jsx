@@ -10,7 +10,7 @@ class UserLogInLogOut extends Component {
         <AuthContext.Consumer>
           {({ isAuth, googleLogin, googleLogOut, username, photoURL }) =>
             isAuth === false ? (
-              <section>
+              <header>
                 <p className={`${styles.logInLogOutp} ${styles.logInLogOut}`}>
                   Login:
                 </p>
@@ -18,7 +18,7 @@ class UserLogInLogOut extends Component {
                   onClick={googleLogin}
                   className={styles.logInLogOut}
                 />
-              </section>
+              </header>
             ) : (
               <section>
                 <p>Hello {username}</p>

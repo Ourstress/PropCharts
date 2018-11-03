@@ -6,6 +6,9 @@ import { apiData } from "../dataProcessing/dataContext";
 class ChartDisplay extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      right: `right${this.props.graphRight.slice(0, 1)}`
+    };
     this.handleClickLeft = this.handleClickLeft.bind(this);
     this.handleClickRight = this.handleClickRight.bind(this);
   }
@@ -24,6 +27,9 @@ class ChartDisplay extends Component {
     let name = event.target.name;
     this.setState({
       right:
+        // If this.state is null or this.state.right is not this chart and this chart is toggled
+        // then set this.right to right[name]
+        // if this.state is right[name], change it to null
         this.state == null || this.state.right !== `right${name}`
           ? "right" + [name]
           : null

@@ -38,13 +38,7 @@ class Article extends Component {
               ))}
               <AuthContext.Consumer>
                 {({ isAuth, userID }) =>
-                  isAuth && (
-                    <AddComments
-                      userID={userID}
-                      isAuth={isAuth}
-                      justTest="testhoho"
-                    />
-                  )
+                  isAuth && <AddComments userID={userID} articleID={key} />
                 }
               </AuthContext.Consumer>
               <DataContext>

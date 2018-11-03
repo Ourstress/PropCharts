@@ -16,7 +16,11 @@ class AddComments extends Component {
   }
   async handleSubmit(event) {
     event.preventDefault();
-    await db.createComment(this.props.userID, this.state.value);
+    await db.createComment(
+      this.props.userID,
+      this.state.value,
+      this.props.articleID
+    );
     alert("comment submitted!");
     this.setState({ value: "" });
   }
