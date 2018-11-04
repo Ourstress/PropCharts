@@ -75,11 +75,14 @@ export const articles = async () => {
       const commentsContainer = {};
       commentsContainer.articleText = doc
         .data()
-        .articleText.replace(/-/g, "\n-");
+        .articleText.replace(/-/g, "\n-")
+        .replace(/###/g, "\n\n");
       commentsContainer.graphLeft = doc.data().graphLeft;
       commentsContainer.graphRight = doc.data().graphRight;
       commentsContainer.dateUpdated = doc.data().dateUpdated;
       commentsContainer.pubdate = doc.data().pubdate;
+      commentsContainer.author = doc.data().author.id;
+      commentsContainer.title = doc.data().title;
       commentsContainer.comments = Object.values(doc.data().comments).map(
         item => item.id
       );

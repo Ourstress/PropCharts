@@ -26,9 +26,20 @@ class Article extends Component {
           this.state.authors &&
           Object.keys(this.state.articles).map(key => (
             <article key={key} className="h-entry">
+              <header>
+                <ReactMarkdown source={this.state.articles[key].title} />
+              </header>
               <section>
-                <ReactMarkdown source={this.state.articles[key].articleText} />
+                <DataContext>
+                  <ChartDisplay
+                    graphLeft={this.state.articles[key].graphLeft}
+                    graphRight={this.state.articles[key].graphRight}
+                  />
+                </DataContext>
               </section>
+              <article>
+                <ReactMarkdown source={this.state.articles[key].articleText} />
+              </article>
               <section className="comments">
                 {this.state.articles[key].comments.map(commentID => (
                   <Comments
@@ -45,14 +56,6 @@ class Article extends Component {
                     isAuth && <AddComments userID={userID} articleID={key} />
                   }
                 </AuthContext.Consumer>
-              </section>
-              <section>
-                <DataContext>
-                  <ChartDisplay
-                    graphLeft={this.state.articles[key].graphLeft}
-                    graphRight={this.state.articles[key].graphRight}
-                  />
-                </DataContext>
               </section>
             </article>
           ))}

@@ -9,7 +9,6 @@ class App extends Component {
       <div className="container">
         <AuthContextProvider>
           <HeaderAndNav />
-          <div className="sidebar">hello</div>
           <Article />
         </AuthContextProvider>
       </div>
