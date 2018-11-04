@@ -32,4 +32,7 @@ body header {
   [role="main"] article {
     grid-template-columns: 1fr;
   }
+  [role="main"] article article {
+    column-count: 1;
+  }
 }

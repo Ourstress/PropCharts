@@ -26,12 +26,19 @@ export const createUser = (
   photoURL = "",
   phoneNumber = ""
 ) => {
-  db.collection("user").add({
-    username,
-    email,
-    photoURL,
-    phoneNumber
-  });
+  db.collection("user")
+    .add({
+      username,
+      photoURL
+    })
+    .then(doc => {
+      const newUserID = doc.id;
+      db.collection("protectedUserInfo").add({
+        user: firebase.firestore().doc(`/user/${newUserID}`),
+        email,
+        phoneNumber
+      });
+    });
 };
 
 export const authors = async () => {
@@ -93,7 +100,9 @@ export const articles = async () => {
 };
 
 export const queryUserByEmail = async user => {
-  const query = await db.collection("user").where("email", "==", user.email);
+  const query = await db
+    .collection("protectedUserInfo")
+    .where("email", "==", user.email);
   return query.get();
 };
 
@@ -102,13 +111,17 @@ export const queryUserByEmailOperation = async (querySnapshot, user) => {
   let timeNow = new Date();
   if (querySnapshot.size > 0) {
     querySnapshot.forEach(Snapshot => {
+      console.log(Snapshot.data());
       db.collection("user")
-        .doc(Snapshot.id)
+        .doc(Snapshot.data().user.id)
         .update({
           loginSessions: firebase.firestore.FieldValue.arrayUnion(timeNow)
         });
-      Object.assign(result, Snapshot.data());
-      Object.assign(result, { userID: Snapshot.id });
+      Object.assign(result, {
+        username: user.displayName,
+        photoURL: user.photoURL
+      });
+      Object.assign(result, { userID: Snapshot.data().user.id });
     });
     return result;
   } else {
@@ -120,7 +133,6 @@ export const queryUserByEmailOperation = async (querySnapshot, user) => {
     );
     return {
       username: user.displayName,
-      email: user.email,
       photoURL: user.photoURL
     };
   }
