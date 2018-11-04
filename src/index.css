@@ -1,9 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Cabin|Crimson+Text");
+html {
+  font-size: 18px;
+  line-height: 36px;
+}
 * {
   box-sizing: content-box;
+  font-family: "Crimson Text", serif;
 }
 body {
   display: grid;
-  padding: 0 2rem 0 2rem;
+  padding: 0 1rem 0 1rem;
 }
 .container {
   display: grid;
@@ -12,8 +18,14 @@ body {
     "header header"
     "center center";
 }
-body header {
+.container > header {
   grid-area: header;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 0 1rem 0 1rem;
+  text-align: center;
+  font-family: "Cabin", sans-serif;
 }
 [role="main"] {
   grid-area: center;
@@ -22,15 +34,45 @@ body header {
   font-size: 1rem;
 }
 [role="main"] article article {
-  column-count: 2;
-}
-[role="main"] article section.comments {
+  padding: 2rem 0 2rem 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
+  /* grid-column-gap: 1.5rem;
+  column-count: 2;
+  column-rule: solid black;
+  column-gap: 2rem; */
+}
+[role="main"] article article p {
+  padding: 0 0 1rem 1rem;
+  border-left: 1px solid black;
+  margin: 0;
+}
+[role="main"] article article ul {
+  padding: 0 1rem 1rem 1rem;
+  margin: 0;
+  list-style: square inside;
+  text-indent: -1em;
+}
+[role="main"] ul {
+  padding: 0 0 0 1rem;
+}
+
+[role="main"] article section.comments div {
+  display: grid;
+  grid-template-columns: 2fr 0.5fr 0.5fr 1fr;
 }
 @media only screen and (max-width: 600px) {
   [role="main"] article {
     grid-template-columns: 1fr;
+  }
+  [role="main"] article article {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  [role="main"] article article p,
+  ul {
+    border: none;
+    padding-left: 0;
   }
   [role="main"] article article {
     column-count: 1;

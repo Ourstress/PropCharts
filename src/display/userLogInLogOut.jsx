@@ -11,13 +11,16 @@ class UserLogInLogOut extends Component {
           {({ isAuth, googleLogin, googleLogOut, username, photoURL }) =>
             isAuth === false ? (
               <header>
-                <p className={`${styles.logInLogOutp} ${styles.logInLogOut}`}>
-                  Login:
-                </p>
-                <GoogleSigninButton
-                  onClick={googleLogin}
-                  className={styles.logInLogOut}
-                />
+                <h1>PropCharts</h1>
+                <section>
+                  <p className={`${styles.logInLogOutp} ${styles.logInLogOut}`}>
+                    Login:
+                  </p>
+                  <GoogleSigninButton
+                    onClick={googleLogin}
+                    className={styles.logInLogOut}
+                  />
+                </section>
               </header>
             ) : (
               <section>
