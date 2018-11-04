@@ -7,6 +7,7 @@ firebase.json
 firestore.indexes.json
 firestore.rules
 y
+.firebase
 
 #vscode
 .vscode
