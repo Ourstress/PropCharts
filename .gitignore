@@ -2,6 +2,14 @@
 
 #firebase
 /src/firebase/firebase.js
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules
+y
+
+#vscode
+.vscode
 
 # dependencies
 /node_modules

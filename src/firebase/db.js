@@ -111,7 +111,6 @@ export const queryUserByEmailOperation = async (querySnapshot, user) => {
   let timeNow = new Date();
   if (querySnapshot.size > 0) {
     querySnapshot.forEach(Snapshot => {
-      console.log(Snapshot.data());
       db.collection("user")
         .doc(Snapshot.data().user.id)
         .update({
